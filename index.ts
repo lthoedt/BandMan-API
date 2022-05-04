@@ -1,10 +1,12 @@
-import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
+require('dotenv').config();
+
+const express = require("express");
+const dbl = require("./database/dbl");
+const route_main = require('./controllers/MainService');
 
 const app = express();
 
-const route_main = require('./controllers/MainService');
+dbl.init();
 
 app.use( "/api/", route_main );
 
