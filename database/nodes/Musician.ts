@@ -11,11 +11,12 @@ export class Musician extends NodeParent {
     dateOfBirth: Date;
     email: string;
 
-    public constructor(name: Name, dateOfBirth: Date, email: string) {
+    public constructor(name: Name, dateOfBirth: Date, email: string, id: string) {
         super();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
+        this.id = id;
     }
 
     toString(): string {
@@ -23,7 +24,7 @@ export class Musician extends NodeParent {
     }
 
     static fromDTO(musicianDTO: MusicianDTO): Musician {
-        return new Musician(musicianDTO.name, musicianDTO.dateOfBirth, musicianDTO.email);
+        return new Musician(musicianDTO.name, musicianDTO.dateOfBirth, musicianDTO.email, musicianDTO.id);
     }
 
     static fromQuery(result: any): Musician {
