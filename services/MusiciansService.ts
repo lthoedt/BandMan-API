@@ -13,3 +13,14 @@ export async function createMusician(musician: Musician): Promise<boolean> {
     return false;
   }
 }
+
+export async function musicianExists(musicianId : string) : Promise<boolean> {
+  try {
+    const result = await session.run(
+      `MATCH (m:Musician) WHERE m.id="${musicianId}" RETURN m`
+    )
+    return result.records.length != 0
+  } catch {
+    return false;
+  }
+}
