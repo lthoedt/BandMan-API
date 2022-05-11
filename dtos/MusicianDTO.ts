@@ -5,6 +5,7 @@ export class MusicianDTO {
     name: Name;
     dateOfBirth: Date;
     id: string;
+    email : string;
 
     static fromJSON(json: any): MusicianDTO {
         try {
@@ -18,6 +19,8 @@ export class MusicianDTO {
             musicianDTO.dateOfBirth = new Date(json.dateOfBirth);
 
             musicianDTO.id = json.id;
+
+            musicianDTO.email = json.email;
 
             return musicianDTO;
         } catch {

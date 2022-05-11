@@ -14,12 +14,13 @@ export async function createMusician(musician: Musician): Promise<boolean> {
   }
 }
 
-export async function musicianExists(musicianId : string) : Promise<boolean> {
+export async function musicianExists(musicianId : string, email : boolean = false) : Promise<boolean> {
   try {
+    const prop = ( email ) ? "email" : "id";
     const result = await session.run(
-      `MATCH (m:Musician) WHERE m.id="${musicianId}" RETURN m`
+      `MATCH (m:Musician) WHERE m.${prop}="${musicianId}" RETURN m`
     )
-    return result.records.length != 0
+    return result.records.length != 0;
   } catch {
     return false;
   }
