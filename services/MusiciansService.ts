@@ -24,8 +24,10 @@ export async function loginMusician(login : Login): Promise<Musician> {
     )
 
     if (result.records.length == 0) return null;
+
     
     const musician:Musician = Musician.fromQuery(result.records[0].toObject()['m']['properties']);
+    console.log(musician);
 
     return musician;
   } catch(err) {

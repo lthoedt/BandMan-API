@@ -65,7 +65,8 @@ GET /musicians/login
             "lastname": String
         },
         "dateOfBirth": "yyyy-mm-dd",
-        "email": String
+        "email": String,
+        "id": String
     }
 }
 ```
