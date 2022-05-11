@@ -13,12 +13,46 @@ POST /musicians
 `Request body`
 ```json
 {
-    "name": {
-        "firstname": String,
-        "insertion": String,
-        "lastname": String
-    },
-    "dateOfBirth": "yyyy-mm-dd"
+    "firstname": String,
+    "insertion": String,
+    "lastname": String,
+    "dateOfBirth": "yyyy-mm-dd",
+    "email": String,
+    "password": String (hashed)
+}
+```
+`Reponse body`
+```json
+
+```
+---
+
+### Login musician
+---
+```http
+GET /musicians/login
+```
+`Request body`
+```json
+{
+    "email": String,
+    "password": String (hashed)
+}
+```
+`Reponse body`
+```json
+{
+    "success": boolean,
+    "musician": {
+        "type": "Musician",
+        "name": {
+            "firstname": String,
+            "insertion": String,
+            "lastname": String
+        },
+        "dateOfBirth": "yyyy-mm-dd",
+        "email": String
+    }
 }
 ```
 ---
