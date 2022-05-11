@@ -24,11 +24,9 @@ export async function loginMusician(login : Login): Promise<Musician> {
     )
 
     if (result.records.length == 0) return null;
-
     
     const musician:Musician = Musician.fromQuery(result.records[0].toObject()['m']['properties']);
-    console.log(musician);
-
+    
     return musician;
   } catch(err) {
     console.log(err);
@@ -40,7 +38,7 @@ export async function musicianExists(musicianId : string, email : boolean = fals
   try {
     const prop = ( email ) ? "email" : "id";
     const result = await session.run(
-      `MATCH (m:Musician) WHERE m.${prop}="${musicianId}" RETURN m`
+      `MATCH (m:${Nodes.Musician}) WHERE m.${prop}="${musicianId}" RETURN m`
     )
     return result.records.length != 0;
   } catch {

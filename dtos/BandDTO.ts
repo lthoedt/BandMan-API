@@ -1,9 +1,7 @@
-import { DateEntity } from "../database/entities/DateEntity";
-
 export class BandDTO {
 
     name: string;
-    originateDate: DateEntity;
+    originateDate: Date;
     id: string;
 
     static fromJSON(json: any): BandDTO {
@@ -11,7 +9,7 @@ export class BandDTO {
             const bandDTO: BandDTO = new BandDTO;
 
             bandDTO.name = json.name;
-            bandDTO.originateDate = new DateEntity(json.originateDate);
+            bandDTO.originateDate = new Date(json.originateDate);
 
             bandDTO.id = json.id;
 

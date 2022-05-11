@@ -2,17 +2,17 @@ import { NodeParent } from "./NodeParent";
 import { Name } from "../entities/Name";
 import { Nodes } from "./Nodes";
 import { MusicianDTO } from "../../dtos/MusicianDTO";
-import { DateEntity } from "../entities/DateEntity";
+import { dateToString } from "../../controllers/functions";
 
 export class Musician extends NodeParent {
 
     type = Nodes.Musician;
 
     name: Name;
-    dateOfBirth: DateEntity;
+    dateOfBirth: Date;
     email: string;
 
-    public constructor(name: Name, dateOfBirth: DateEntity, email: string, id: string) {
+    public constructor(name: Name, dateOfBirth: Date, email: string, id: string) {
         super();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -23,7 +23,7 @@ export class Musician extends NodeParent {
     toString(): string {
         return `
             ${this.name.toString()},
-            dateOfBirth: ${this.dateOfBirth.toString()},
+            dateOfBirth: ${dateToString(this.dateOfBirth)},
             email: "${this.email}",
             id: "${this.id}"
         `;

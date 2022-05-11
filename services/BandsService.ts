@@ -6,9 +6,13 @@ import Relations from "../database/relations/Relations";
 export async function createBand(band: Band, musicianId: string): Promise<boolean> {
 
   try {
-    const result = await session.run(
-      `CREATE (b:${band.type} {${band.toString()}}) WITH (b) MATCH (m:${Nodes.Musician}) WHERE m.id="${musicianId}" CREATE (m)-[rc:${Relations.Creator}]->(b), (m)-[rm:${Relations.Member}]->(b)`
-    )
+    const result = await session.run(`
+		CREATE (b:${band.type} {${band.toString()}})
+		WITH (b)
+		MATCH (m:${Nodes.Musician})
+		WHERE m.id="${musicianId}"
+		CREATE (m)-[rc:${Relations.Creator}]->(b), (m)-[rm:${Relations.Member}]->(b)
+		`)
     return true;
   } catch (err) {
     console.log(err)

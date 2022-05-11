@@ -71,3 +71,30 @@ GET /musicians/login
 }
 ```
 ---
+
+## SongVoteList
+### Create
+---
+```http
+POST /songvotelist
+```
+`Request body`
+```json
+{
+    "endDate": Date,
+    "bandId": string
+}
+```
+`Reponse body`
+```json
+{
+    "success": boolean,
+    "songVoteList": {
+        "type": "SongVoteList",
+        "creationDate": "yyyy-mm-dd",
+        "endDate": "yyyy-mm-dd",
+        "id": String
+    }
+}
+```
+---
