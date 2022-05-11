@@ -7,7 +7,7 @@ export async function createBand(band: Band, musicianId: string): Promise<boolea
 
   try {
     const result = await session.run(
-      `CREATE (b:${band.type} {${band.toString()}}) WITH (b) MATCH (m:${Nodes.Musician}) WHERE m.id="${musicianId}" CREATE (m)-[r:${Relations.CREATOR}]->(b)`
+      `CREATE (b:${band.type} {${band.toString()}}) WITH (b) MATCH (m:${Nodes.Musician}) WHERE m.id="${musicianId}" CREATE (m)-[rc:${Relations.CREATOR}]->(b), (m)-[rm:${Relations.MEMBER}]->(b)`
     )
     return true;
   } catch (err) {
