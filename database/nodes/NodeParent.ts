@@ -1,6 +1,13 @@
+import { createId } from "../../services/jsFunctions";
 import { Nodes } from "./Nodes";
 
-export interface NodeParent {
+export abstract class NodeParent {
+    id : string;
     type: Nodes;
-    toString() : string;
+    abstract toString() : string;
+    
+    public generateId(): string {
+        this.id = createId();
+        return this.id;
+    }
 }
