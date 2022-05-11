@@ -12,7 +12,7 @@ export class MusicianDTO {
             const musicianDTO: MusicianDTO = new MusicianDTO;
 
             // TODO: Create message so not correct name;
-            const name : Name = Name.fromJSON(json.name);
+            const name : Name = Name.fromJSON(json);
             if (name == null) return null;
 
             musicianDTO.name = name;

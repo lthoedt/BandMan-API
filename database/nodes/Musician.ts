@@ -4,6 +4,7 @@ import { Nodes } from "./Nodes";
 import { MusicianDTO } from "../../dtos/MusicianDTO";
 
 export class Musician extends NodeParent {
+
     type = Nodes.Musician;
 
     name: Name;
@@ -23,5 +24,10 @@ export class Musician extends NodeParent {
 
     static fromDTO(musicianDTO: MusicianDTO): Musician {
         return new Musician(musicianDTO.name, musicianDTO.dateOfBirth, musicianDTO.email);
+    }
+
+    static fromQuery(result: any): Musician {
+        const musicianDto = MusicianDTO.fromJSON(result);
+        return Musician.fromDTO(musicianDto);
     }
 }
