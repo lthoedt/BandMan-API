@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
     res.json({
         success: status,
-        musician: musician.toString()
+        musician: musician
     })
 })
 

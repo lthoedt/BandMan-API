@@ -23,6 +23,20 @@ POST /musicians
 ```
 `Reponse body`
 ```json
+{
+    "success": boolean,
+    "musician": {
+        "type": "Musician",
+        "name": {
+            "firstname": String,
+            "insertion": String,
+            "lastname": String
+        },
+        "dateOfBirth": "yyyy-mm-dd",
+        "email": String,
+        "id": String
+    }
+}
 
 ```
 ---
