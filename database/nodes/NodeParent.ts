@@ -1,5 +1,6 @@
 import { Nodes } from "./Nodes";
 
 export interface NodeParent {
-    type: Nodes
+    type: Nodes;
+    toString() : string;
 }

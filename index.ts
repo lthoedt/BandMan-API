@@ -15,4 +15,4 @@ app.use( "/api/", route_main );
 app.listen( process.env.PORT || 3001, () => {
     // tslint:disable-next-line:no-console
     console.log( `API is running!` );
-} );
+});

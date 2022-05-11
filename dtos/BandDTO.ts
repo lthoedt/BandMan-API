@@ -1,14 +1,18 @@
 export class BandDTO {
 
-    name : string;
-    originateDate : Date;
+    name: string;
+    originateDate: Date;
 
-    static fromJSON(json : any) : BandDTO {
-        const bandDTO : BandDTO = new BandDTO;
+    static fromJSON(json: any): BandDTO {
+        try {
+            const bandDTO: BandDTO = new BandDTO;
 
-        bandDTO.name = json.name;
-        bandDTO.originateDate = new Date(json.originateDate);
+            bandDTO.name = json.name;
+            bandDTO.originateDate = new Date(json.originateDate);
 
-        return bandDTO;
+            return bandDTO;
+        } catch {
+            return null;
+        }
     }
 }
