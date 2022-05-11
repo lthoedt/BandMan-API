@@ -20,7 +20,12 @@ export class Musician extends NodeParent {
     }
 
     toString(): string {
-        return `${this.name.toString()}, dateOfBirth: date("${this.dateOfBirth.getFullYear()}-${this.dateOfBirth.getMonth()}-${this.dateOfBirth.getDate()}"), id: "${this.id}", email: "${this.email}"`;
+        return `
+            ${this.name.toString()},
+            dateOfBirth: date("${this.dateOfBirth.getFullYear()}-${this.dateOfBirth.getMonth()}-${this.dateOfBirth.getDate()}"),
+            email: "${this.email}",
+            id: "${this.id}"
+        `;
     }
 
     static fromDTO(musicianDTO: MusicianDTO): Musician {
