@@ -2,16 +2,17 @@ import { NodeParent } from "./NodeParent";
 import { Name } from "../entities/Name";
 import { Nodes } from "./Nodes";
 import { MusicianDTO } from "../../dtos/MusicianDTO";
+import { DateEntity } from "../entities/DateEntity";
 
 export class Musician extends NodeParent {
 
     type = Nodes.Musician;
 
     name: Name;
-    dateOfBirth: Date;
+    dateOfBirth: DateEntity;
     email: string;
 
-    public constructor(name: Name, dateOfBirth: Date, email: string, id: string) {
+    public constructor(name: Name, dateOfBirth: DateEntity, email: string, id: string) {
         super();
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -22,7 +23,7 @@ export class Musician extends NodeParent {
     toString(): string {
         return `
             ${this.name.toString()},
-            dateOfBirth: date("${this.dateOfBirth.getFullYear()}-${this.dateOfBirth.getMonth()}-${this.dateOfBirth.getDate()}"),
+            dateOfBirth: ${this.dateOfBirth.toString()},
             email: "${this.email}",
             id: "${this.id}"
         `;

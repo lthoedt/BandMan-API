@@ -6,4 +6,5 @@ export enum Nodes {
     Label = "Label",
     Album = "Album",
     Genre = "Genre",
+    SongVoteList = "SongVoteList",
 }

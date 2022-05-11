@@ -1,3 +1,4 @@
+import { DateEntity } from "../entities/DateEntity";
 import { Image } from "../entities/Image";
 import { NodeParent } from "./NodeParent";
 import { Nodes } from "./Nodes";
@@ -6,10 +7,10 @@ export class Artist extends NodeParent {
     type = Nodes.Artist;
 
     name: string;
-    dateOfBirth: Date;
+    dateOfBirth: DateEntity;
     thumbnail: Image;
 
-    public constructor(id: string, name: string, dateOfBirth: Date, thumbnail: Image) {
+    public constructor(id: string, name: string, dateOfBirth: DateEntity, thumbnail: Image) {
         super();
         this.id = id;
         this.name = name;
@@ -20,12 +21,12 @@ export class Artist extends NodeParent {
     toString(): string {
         return `
             name: "${this.name}",
-            dateOfBirth: date("${this.dateOfBirth.getFullYear()}-${this.dateOfBirth.getMonth()}-${this.dateOfBirth.getDate()}"),
+            dateOfBirth: ${this.dateOfBirth.toString()},
             id: "${this.id}"
         `;
     }
 
     static fromJSON(json : any): Artist {
-        return new Artist(json.id, json.name, json.dateOfBirth, Image.fromJSON(json.thumbnail));
+        return new Artist(json.id, json.name, new DateEntity(json.dateOfBirth), Image.fromJSON(json.thumbnail));
     }
 }

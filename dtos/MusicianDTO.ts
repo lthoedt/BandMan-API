@@ -1,9 +1,10 @@
+import { DateEntity } from "../database/entities/DateEntity";
 import { Name } from "../database/entities/Name";
 
 export class MusicianDTO {
 
     name: Name;
-    dateOfBirth: Date;
+    dateOfBirth: DateEntity;
     id: string;
     email : string;
 
@@ -16,7 +17,7 @@ export class MusicianDTO {
             if (name == null) return null;
 
             musicianDTO.name = name;
-            musicianDTO.dateOfBirth = new Date(json.dateOfBirth);
+            musicianDTO.dateOfBirth = new DateEntity(json.dateOfBirth);
 
             musicianDTO.id = json.id;
 

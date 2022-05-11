@@ -1,3 +1,4 @@
+import { DateEntity } from "../entities/DateEntity";
 import { BandDTO } from "../../dtos/BandDTO";
 import { NodeParent } from "./NodeParent";
 import { Nodes } from "./Nodes";
@@ -6,9 +7,9 @@ export class Band extends NodeParent {
     type = Nodes.Band;
 
     name: string;
-    originationDate: Date;
+    originationDate: DateEntity;
 
-    public constructor(id: string, name: string, originationDate: Date) {
+    public constructor(id: string, name: string, originationDate: DateEntity) {
         super();
         this.id = id;
         this.name = name;
@@ -18,7 +19,7 @@ export class Band extends NodeParent {
     toString(): string {
         return `
             name: "${this.name}",
-            originationDate: date("${this.originationDate.getFullYear()}-${this.originationDate.getMonth()}-${this.originationDate.getDate()}"),
+            originationDate: ${this.originationDate.toString()},
             id: "${this.id}"
         `;
     }
