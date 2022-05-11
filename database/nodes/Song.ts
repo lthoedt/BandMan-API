@@ -62,4 +62,9 @@ export class Song extends NodeParent {
     static fromDTO(songDTO : SongDTO) : Song {
         return new Song(songDTO.id, songDTO.title, songDTO.year, songDTO.duration, songDTO.thumbnail, songDTO.artists, songDTO.album, songDTO.urls, songDTO.songData);
     }
+
+    static fromQuery(result: any): Song {
+        const songDto = SongDTO.fromJSON(result);
+        return Song.fromDTO(songDto);
+    }
 }
