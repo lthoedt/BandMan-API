@@ -1,7 +1,5 @@
-const axios = require("axios");
-
 import { Song } from '../database/nodes/Song';
-import { session } from '../database/dbl';
+import { getSession } from '../database/dbl';
 import { Nodes } from "../database/nodes/Nodes";
 import Relations from "../database/relations/Relations";
 import { createArtistsIfNotExist as createArtistsIfNotExist } from './ArtistService';
@@ -17,9 +15,11 @@ const songDataApi: SongDataApiInterface = new SpotifyApi();
 
 export async function songExists(id: string, spotifyApiId: string) {
 	try {
+		const session = getSession();
 		const result = await session.run(
 			`MATCH (a:${Nodes.Song}) WHERE a.id="${id}" OR a.spotifyApiId="${spotifyApiId}" RETURN a`
 		)
+		session.close();
 		return result.records.length != 0;
 	} catch {
 		return false;
@@ -62,8 +62,10 @@ export async function createSong(song: Song): Promise<Song> {
 
 			CREATE (artist)-[ras:${Relations.Player}]->(song)
 		`
-
+		const session = getSession();
 		const result = await session.run(query)
+		session.close();
+
 		return song;
 	} catch (err) {
 		console.log(err)
@@ -86,11 +88,15 @@ export async function searchSong(search: string, resultType: number): Promise<Ar
 
 	if (resultType != 1) {
 		try {
+			const session = getSession();
+
 			const result = await session.run(`
 		MATCH(s: ${Nodes.Song})
 		WHERE s.title =~ '.*${search}.*'
 		RETURN s
 			`)
+
+			session.close();
 
 			songsDB = result.records.map((songRecord: any) => Song.fromQuery(songRecord));
 		} catch (err) {

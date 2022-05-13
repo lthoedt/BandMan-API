@@ -16,7 +16,7 @@ class Spotify implements SongDataApiInterface {
             params: {
                 q: search,
                 type: 'tracks',
-                limit: '1'
+                limit: '2'
             },
             headers: {
                 'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',

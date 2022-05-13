@@ -14,7 +14,7 @@ router.get('/search', async (req, res) => {
     
     res.json(songs);
 
-    songs.forEach(createSongIfNotExist);
+    songs.forEach(async (song: Song) => await createSongIfNotExist(song));
 })
 
 module.exports = router;
