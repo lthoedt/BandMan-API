@@ -1,7 +1,7 @@
-import { NodeParent } from "./NodeParent";
+import { NodeStructure } from "./NodeStructure";
 import { Nodes } from "./Nodes";
 
-export class Label extends NodeParent {
+export class Label extends NodeStructure {
     type = Nodes.Label;
 
     name: string;

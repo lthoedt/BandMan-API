@@ -27,4 +27,4 @@ export const sendStatus = (res : any, status : any, message: string) => {
     return res.status(status).json(response);
 }
 
-export const dateToString = (date: Date): String => `date("${date.getFullYear()}-${date.getMonth()}-${date.getDate()}")`;
+export const dateToString = (date: Date): string => (date) ? `date("${date.getFullYear()}-${date.getMonth()}-${date.getDate()}")` : `""`;

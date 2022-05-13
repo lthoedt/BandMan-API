@@ -1,18 +1,20 @@
 import express from 'express';
 import { Song } from '../database/nodes/Song';
-import { searchSong } from '../services/SongsService';
+import { createSongIfNotExist, searchSong } from '../services/SongsService';
 import { sendStatus } from './functions';
 
 const router = express.Router();
 
 router.get('/search', async (req, res) => {
-    const search: any = req.query.q;
+    const search: string = <string> req.query.q;
     
-    const songs: Array<Song> = await searchSong(search);
+    const songs: Array<Song> = await searchSong(search, parseInt(<string> req.query.resultType, 10));
 
     if (songs == null) return sendStatus(res, 500, "");
     
     res.json(songs);
+
+    songs.forEach(createSongIfNotExist);
 })
 
 module.exports = router;

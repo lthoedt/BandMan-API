@@ -1,4 +1,4 @@
-import { Image } from "../database/entities/Image";
+import { Image } from "../database/nodes/Image";
 import { SongData } from "../database/entities/SongData";
 import { Artist } from "../database/nodes/Artist";
 import { Album } from "../database/nodes/Album";
@@ -6,6 +6,8 @@ import { Album } from "../database/nodes/Album";
 export class SongDTO {
 
     id: string;
+    spotifyApiId: string;
+
     title: string;
     year: number;
     duration: number;
@@ -15,6 +17,7 @@ export class SongDTO {
     urls: {
         spotify: string;
         ytMusic: string;
+        yt: string;
     };
     songData: SongData;
 
@@ -23,6 +26,7 @@ export class SongDTO {
             const songDTO: SongDTO = new SongDTO;
             
             songDTO.id = json.id;
+            songDTO.spotifyApiId = json.spotifyApiId;
             songDTO.title = json.title;
             songDTO.year = json.year;
             songDTO.duration = json.duration;

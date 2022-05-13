@@ -1,15 +1,17 @@
-import { NodeParent } from "./NodeParent";
+import { NodeStructure } from "./NodeStructure";
 import { Nodes } from "./Nodes";
-import { Image } from "../entities/Image";
+import { Image } from "./Image";
 import { SongData } from "../entities/SongData";
 import { Artist } from "./Artist";
 import { Album } from "./Album";
 import {SongDTO} from "../../dtos/SongDTO";
 
-export class Song extends NodeParent {
+export class Song extends NodeStructure {
     type=Nodes.Song;
 
     id: string;
+    spotifyApiId: string;
+
     title: string;
     year: number;
     duration: number;
@@ -19,11 +21,13 @@ export class Song extends NodeParent {
     urls: {
         spotify: string;
         ytMusic: string;
+        yt: string;
     };
     songData: SongData;
     
     public constructor(
         id: string,
+        spotifyApiId: string,
         title: string,
         year: number,
         duration: number,
@@ -33,11 +37,13 @@ export class Song extends NodeParent {
         urls: {
             spotify: string;
             ytMusic: string;
+            yt: string;
         },
         songData: SongData
     ) {
         super();
-        this.id;
+        this.id = id;
+        this.spotifyApiId = spotifyApiId;
         this.title = title;
         this.year = year;
         this.duration = duration;
@@ -55,16 +61,21 @@ export class Song extends NodeParent {
             duration: "${this.duration}",
             urls: "${this.urls}",
             ${this.songData.toString()},
+            spotifyApiId: "${this.spotifyApiId}",
             id: "${this.id}"
         `;
     }
 
     static fromDTO(songDTO : SongDTO) : Song {
-        return new Song(songDTO.id, songDTO.title, songDTO.year, songDTO.duration, songDTO.thumbnail, songDTO.artists, songDTO.album, songDTO.urls, songDTO.songData);
+        return new Song(songDTO.id, songDTO.spotifyApiId, songDTO.title, songDTO.year, songDTO.duration, songDTO.thumbnail, songDTO.artists, songDTO.album, songDTO.urls, songDTO.songData);
     }
 
     static fromQuery(result: any): Song {
         const songDto = SongDTO.fromJSON(result);
         return Song.fromDTO(songDto);
+    }
+
+    static fromTheAudioDB(json: any): Song {
+        return  new Song(null, json.idTrack, json.strTrack, null, json.intDuration/1000, new Image(json.strTrackThumb), [Artist.fromTheAudioDB(json)], Album.fromTheAudioDB(json), {spotify: null, ytMusic: null, yt: json.strMusicVid}, null);
     }
 }

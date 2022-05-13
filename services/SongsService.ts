@@ -1,19 +1,124 @@
+const axios = require("axios");
+
 import { Song } from '../database/nodes/Song';
 import { session } from '../database/dbl';
 import { Nodes } from "../database/nodes/Nodes";
 import Relations from "../database/relations/Relations";
+import { createArtistsIfNotExist as createArtistsIfNotExist } from './ArtistService';
+import { Artist } from '../database/nodes/Artist';
+import { createImageIfNotExist } from './ImageService';
+import { createAlbumIfNotExist } from './AlbumService';
 
-export async function searchSong(search: string): Promise<Array<Song>> {
+import SongDataApiInterface from '../SongDataApis/songDataApiInterface';
 
-  try {
-    const result = await session.run(`
-		MATCH (s:${Nodes.Song})
-		WHERE s.title=~ '.*${search}.*'
+import SpotifyApi from '../SongDataApis/Spotify/SpotifyService';
+
+const songDataApi: SongDataApiInterface = new SpotifyApi();
+
+export async function songExists(id: string, spotifyApiId: string) {
+	try {
+		const result = await session.run(
+			`MATCH (a:${Nodes.Song}) WHERE a.id="${id}" OR a.spotifyApiId="${spotifyApiId}" RETURN a`
+		)
+		return result.records.length != 0;
+	} catch {
+		return false;
+	}
+}
+
+export async function createSong(song: Song): Promise<Song> {
+	try {
+		song.generateId();
+
+		song.thumbnail = await createImageIfNotExist(song.thumbnail);
+		song.artists = await createArtistsIfNotExist(song.artists);
+		song.album = await createAlbumIfNotExist(song.album);
+
+		let query = `
+			CREATE
+			(song:${song.type} {${song.toString()}})
+		`;
+
+		if (song.thumbnail) query += `
+			WITH(song)
+
+			MATCH (thumbnail:${Nodes.Image})
+			WHERE thumbnail.url = "${song.thumbnail.url}"
+			CREATE (song)-[rc:${Relations.Thumbnail}]->(thumbnail)
+		`
+
+		if (song.album) query += `
+			WITH(song)
+			
+			MATCH (album:${Nodes.Album})
+			WHERE album.id = "${song.album.id}" OR album.spotifyApiId = "${song.album.spotifyApiId}"
+			CREATE (song)-[rc:${Relations.Album}]->(album)
+		`
+
+		if (song.artists) query += `
+			WITH(song)
+
+			${Artist.getArtistsRelationQuery(song.artists)}
+
+			CREATE (artist)-[ras:${Relations.Player}]->(song)
+		`
+
+		const result = await session.run(query)
+		return song;
+	} catch (err) {
+		console.log(err)
+	}
+	return null;
+}
+
+export async function createSongIfNotExist(song: Song): Promise<Song> {
+	return (await songExists(song.id, song.spotifyApiId))
+		? song
+		: createSong(song);
+}
+
+export async function searchSong(search: string, resultType: number): Promise<Array<Song>> {
+
+	let songsDB: Song[];
+	let songsAPI: Song[]
+
+	let errorCount = 0;
+
+	if (resultType != 1) {
+		try {
+			const result = await session.run(`
+		MATCH(s: ${Nodes.Song})
+		WHERE s.title =~ '.*${search}.*'
 		RETURN s
-	`)
-    return result.records.map((songRecord: any) => Song.fromQuery(songRecord));
-  } catch (err) {
-    console.log(err)
-    return null;
-  }
+			`)
+
+			songsDB = result.records.map((songRecord: any) => Song.fromQuery(songRecord));
+		} catch (err) {
+			console.log(err)
+			errorCount++;
+		}
+	}
+
+	if (resultType != 0) {
+		try {
+			songsAPI = await songDataApi.search(search);
+		} catch (err) {
+			console.log(err)
+			errorCount++;
+		}
+	}
+
+	if (errorCount == 2) return null;
+
+	switch (resultType) {
+		case 0:
+			return songsDB;
+		case 1:
+			return songsAPI;
+		case 2:
+			return [
+				...songsDB,
+				...songsAPI
+			]
+	};
 }

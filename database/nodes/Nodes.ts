@@ -7,4 +7,5 @@ export enum Nodes {
     Album = "Album",
     Genre = "Genre",
     SongVoteList = "SongVoteList",
+    Image = "Image",
 }
