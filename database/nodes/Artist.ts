@@ -37,16 +37,19 @@ export class Artist extends NodeStructure {
     static getArtistsRelationQuery(artists: Artist[]): string {
         const artistIds: string[] = []
         const artistAPIIds: string[] = []
+        const artistNames: string[] = []
         artists.forEach((artist: Artist) => {
             if (!artist.id && !artist.spotifyApiId) return;
-            artistIds.push(`"${artist.id}"`);
-            artistAPIIds.push(`"${artist.spotifyApiId}"`);
+            if (artist.id) artistIds.push(`"${artist.id}"`);
+            if (artist.spotifyApiId) artistAPIIds.push(`"${artist.spotifyApiId}"`);
+            if (artist.name) artistNames.push(`"${artist.name}"`);
         })
 
         return `
             MATCH (artist:${Nodes.Artist})
             WHERE artist.id IN [${artistIds}]
             OR artist.spotifyApiId IN [${artistAPIIds}] 
+            OR artist.name IN [${artistNames}] 
         `;
     }
 
