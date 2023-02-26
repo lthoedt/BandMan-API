@@ -1,12 +1,12 @@
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
-import { Image } from "./Image";
-import { SongData } from "../entities/SongData";
-import { Artist } from "./Artist";
-import { Album } from "./Album";
-import {SongDTO} from "../../dtos/SongDTO";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
+import Image from "./Image";
+import SongData from "../entities/SongData";
+import Artist from "./Artist";
+import Album from "./Album";
+import SongDTO from "../../dtos/SongDTO";
 
-export class Song extends NodeStructure {
+export default class Song extends NodeStructure {
     type=Nodes.Song;
 
     id: string;

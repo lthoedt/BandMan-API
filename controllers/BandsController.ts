@@ -1,4 +1,4 @@
-import { BandDTO } from '../dtos/BandDTO';
+import BandDTO from '../dtos/BandDTO';
 import express from 'express';
 import { createBand } from '../services/BandsService';
 import { Band } from '../database/nodes/Band';

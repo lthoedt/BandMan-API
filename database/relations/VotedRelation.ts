@@ -1,7 +1,7 @@
 import Relations from "./Relations";
 import Rating from "../entities/Rating";
 
-export class VotedRelation {
+export default class VotedRelation {
     type = Relations.Voted;
     rating: Rating;
     songVoteListId: string;

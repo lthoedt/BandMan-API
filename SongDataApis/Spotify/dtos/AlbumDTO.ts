@@ -1,7 +1,7 @@
-import { NodeStructure } from '../../../database/nodes/NodeStructure';
-import { Album } from '../../../database/nodes/Album';
+import NodeStructure from '../../../database/nodes/NodeStructure';
+import Album from '../../../database/nodes/Album';
 import { dtoStructure } from '../dtoStructure';
-import { Image } from '../../../database/nodes/Image';
+import Image from '../../../database/nodes/Image';
 
 class AlbumDTO extends dtoStructure {
     id: string;

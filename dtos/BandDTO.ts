@@ -1,4 +1,4 @@
-export class BandDTO {
+export default class BandDTO {
 
     name: string;
     originateDate: Date;

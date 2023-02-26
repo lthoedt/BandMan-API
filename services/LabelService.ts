@@ -1,6 +1,6 @@
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
-import { Label } from "../database/nodes/Label";
+import Label from "../database/nodes/Label";
 
 export async function labelExists(id: string): Promise<boolean> {
 	try {
@@ -10,7 +10,7 @@ export async function labelExists(id: string): Promise<boolean> {
 			`MATCH (a:${Nodes.Label}) WHERE a.id="${id}" RETURN a`
 		)
 
-		session.close();
+		await session.close();
 
 		return result.records.length != 0;
 	} catch {
@@ -29,7 +29,7 @@ export async function createLabel(label: Label): Promise<Label> {
                 (lb:${Nodes.Label} {${label.toString()}})
 		`)
 		
-		session.close();
+		await session.close();
 
 		return label;
 	} catch (err) {

@@ -1,10 +1,10 @@
-import Relations from "../relations/Relations";
 import { dateToString } from "../../controllers/functions";
-import { Image } from "./Image";
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
+import Relations from "../relations/Relations";
+import Image from "./Image";
+import Nodes from "./Nodes";
+import NodeStructure from "./NodeStructure";
 
-export class Artist extends NodeStructure {
+export default class Artist extends NodeStructure {
     type = Nodes.Artist;
 
     name: string;

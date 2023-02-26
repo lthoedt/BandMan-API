@@ -1,4 +1,4 @@
-class Rating {
+export default class Rating {
     rating: number;
     static ratingRange = 2;
 
@@ -8,5 +8,3 @@ class Rating {
         return true;
     }
 }
-
-export default Rating;

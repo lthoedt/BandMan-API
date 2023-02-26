@@ -1,7 +1,7 @@
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
 
-export class Label extends NodeStructure {
+export default class Label extends NodeStructure {
     type = Nodes.Label;
 
     name: string;

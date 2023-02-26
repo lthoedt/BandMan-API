@@ -1,6 +1,6 @@
 import Relations from "./Relations";
 
-export abstract class RelationParent {
+export default abstract class RelationParent {
     type: Relations;
 
     abstract toString() : string;   

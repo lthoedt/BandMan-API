@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Song } from "../../database/nodes/Song";
+import Song from "../../database/nodes/Song";
 import SongDataApiInterface from "../songDataApiInterface";
 
 import TrackDTO from "./dtos/TrackDTO";
@@ -16,7 +16,7 @@ class Spotify implements SongDataApiInterface {
             params: {
                 q: search,
                 type: 'tracks',
-                limit: '2'
+                // limit: '2'
             },
             headers: {
                 'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',

@@ -1,9 +1,9 @@
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
-import { SongVoteListDTO } from "../../dtos/SongVoteListDTO";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
+import SongVoteListDTO from "../../dtos/SongVoteListDTO";
 import { dateToString } from "../../controllers/functions";
 
-export class SongVoteList extends NodeStructure {
+export default class SongVoteList extends NodeStructure {
 
     type=Nodes.SongVoteList;
 

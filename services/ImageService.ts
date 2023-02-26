@@ -1,6 +1,6 @@
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
-import { Image } from "../database/nodes/Image";
+import Image from "../database/nodes/Image";
 
 export async function imageExists(url: string): Promise<boolean> {
 	try {
@@ -10,7 +10,7 @@ export async function imageExists(url: string): Promise<boolean> {
 			`MATCH (i:${Nodes.Image}) WHERE i.url="${url}" RETURN i`
 		)
 
-		session.close();
+		await session.close();
 		return result.records.length != 0;
 	} catch {
 		return false;
@@ -26,7 +26,7 @@ export async function createImage(image: Image): Promise<Image> {
                 (lb:${Nodes.Image} {${image.toString()}})
 		`)
 		
-		session.close();
+		await session.close();
 
 		return image;
 	} catch (err) {

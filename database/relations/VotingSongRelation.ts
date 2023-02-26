@@ -1,5 +1,5 @@
 import Relations from "./Relations";
 
-export class VotingSongRelation {
+export default class VotingSongRelation {
     type = Relations.VotingSong;
 }

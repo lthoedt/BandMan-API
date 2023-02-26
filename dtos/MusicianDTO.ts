@@ -1,6 +1,6 @@
-import { Name } from "../database/entities/Name";
+import Name from "../database/entities/Name";
 
-export class MusicianDTO {
+export default class MusicianDTO {
 
     name: Name;
     dateOfBirth: Date;

@@ -1,10 +1,10 @@
-import { NodeStructure } from "./NodeStructure";
-import { Name } from "../entities/Name";
-import { Nodes } from "./Nodes";
-import { MusicianDTO } from "../../dtos/MusicianDTO";
+import NodeStructure from "./NodeStructure";
+import Name from "../entities/Name";
+import Nodes from "./Nodes";
+import MusicianDTO from "../../dtos/MusicianDTO";
 import { dateToString } from "../../controllers/functions";
 
-export class Musician extends NodeStructure {
+export default class Musician extends NodeStructure {
 
     type = Nodes.Musician;
 

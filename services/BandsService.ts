@@ -1,6 +1,6 @@
 import { getSession } from '../database/dbl';
-import { Band } from '../database/nodes/Band'
-import { Nodes } from "../database/nodes/Nodes";
+import Band from '../database/nodes/Band'
+import Nodes from "../database/nodes/Nodes";
 import Relations from "../database/relations/Relations";
 
 export async function createBand(band: Band, musicianId: string): Promise<boolean> {
@@ -15,7 +15,7 @@ export async function createBand(band: Band, musicianId: string): Promise<boolea
 		CREATE (m)-[rc:${Relations.Creator}]->(b), (m)-[rm:${Relations.Member}]->(b)
 		`)
 
-    session.close();
+    await session.close();
     
     return true;
   } catch (err) {

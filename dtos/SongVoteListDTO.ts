@@ -1,4 +1,4 @@
-export class SongVoteListDTO {
+export default class SongVoteListDTO {
 
     id: string;
     creationDate: Date;

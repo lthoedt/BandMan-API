@@ -1,9 +1,9 @@
 import { dateToString } from "../../controllers/functions";
-import { BandDTO } from "../../dtos/BandDTO";
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
+import BandDTO from "../../dtos/BandDTO";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
 
-export class Band extends NodeStructure {
+export default class Band extends NodeStructure {
     type = Nodes.Band;
 
     name: string;

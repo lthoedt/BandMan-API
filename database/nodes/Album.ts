@@ -1,12 +1,12 @@
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
-import { Artist } from "./Artist";
-import { Genre } from "./Genre";
-import { Label } from "./Label";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
+import Artist from "./Artist";
+import Genre from "./Genre";
+import Label from "./Label";
 import { dateToString } from "../../controllers/functions";
-import { Image } from "./Image";
+import Image from "./Image";
 
-export class Album extends NodeStructure {
+export default class Album extends NodeStructure {
     type=Nodes.Album;
 
     spotifyApiId: string;

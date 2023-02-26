@@ -1,7 +1,7 @@
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
 
-export class Image extends NodeStructure {
+export default class Image extends NodeStructure {
     type=Nodes.Image;
 
     url: string;

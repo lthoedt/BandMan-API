@@ -1,4 +1,4 @@
-export enum Nodes {
+enum Nodes {
     Band = "Band",
     Musician = "Musician",
     Song = "Song",
@@ -9,3 +9,5 @@ export enum Nodes {
     SongVoteList = "SongVoteList",
     Image = "Image",
 }
+
+export default Nodes;

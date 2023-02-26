@@ -1,9 +1,9 @@
-import { Image } from "../database/nodes/Image";
-import { SongData } from "../database/entities/SongData";
-import { Artist } from "../database/nodes/Artist";
-import { Album } from "../database/nodes/Album";
+import Image from "../database/nodes/Image";
+import SongData from "../database/entities/SongData";
+import Artist from "../database/nodes/Artist";
+import Album from "../database/nodes/Album";
 
-export class SongDTO {
+export default class SongDTO {
 
     id: string;
     spotifyApiId: string;

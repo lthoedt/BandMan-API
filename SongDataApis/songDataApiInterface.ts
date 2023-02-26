@@ -1,4 +1,4 @@
-import { Song } from "../database/nodes/Song";
+import Song from "../database/nodes/Song";
 
 interface SongDataApiInterface {
     key: string;

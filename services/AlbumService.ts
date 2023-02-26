@@ -1,20 +1,24 @@
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
-import { Album } from "../database/nodes/Album";
+import Album from "../database/nodes/Album";
 import { createArtistsIfNotExist } from "./ArtistService";
 import { createLabelIfNotExist } from "./LabelService";
 import { createGenreIfNotExist } from "./GenreService";
 import { createImageIfNotExist } from "./ImageService";
 import Relations from "../database/relations/Relations";
-import { Artist } from "../database/nodes/Artist";
+import Artist from "../database/nodes/Artist";
 
 export async function albumExists(id: string, spotifyApiId: string) {
 	const session = getSession();
+
+	if (!id) id="";
+	if (!spotifyApiId) spotifyApiId="";
+
 	try {
 		const result = await session.run(
 			`MATCH (a:${Nodes.Album}) WHERE a.id="${id}" OR a.spotifyApiId="${spotifyApiId}" RETURN a`
 		)
-		session.close();
+		await session.close();
 		return result.records.length != 0;
 	} catch {
 		return false;
@@ -68,7 +72,7 @@ export async function createAlbum(album: Album): Promise<Album> {
 
 		const session = getSession();
 		const result = await session.run(query);
-		session.close();
+		await session.close();
 		return album;
 	} catch (err) {
 		console.log(err)

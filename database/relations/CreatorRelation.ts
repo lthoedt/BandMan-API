@@ -1,5 +1,5 @@
 import Relations from "./Relations";
 
-export class CreatorRelation {
+export default class CreatorRelation {
     type = Relations.Creator;
 }

@@ -1,5 +1,5 @@
-import { NodeStructure } from '../../../database/nodes/NodeStructure';
-import { Artist } from '../../../database/nodes/Artist';
+import NodeStructure from '../../../database/nodes/NodeStructure';
+import Artist from '../../../database/nodes/Artist';
 import { dtoStructure } from '../dtoStructure';
 
 class ArtistDTO extends dtoStructure {
@@ -18,7 +18,7 @@ class ArtistDTO extends dtoStructure {
     }
 
     toNode(): Artist {
-        return new Artist(null, this.name, null, null, this.id);
+        return new Artist(undefined, this.name, null, null, this.id);
     }
 }
 

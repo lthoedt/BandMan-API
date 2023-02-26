@@ -1,7 +1,7 @@
 import { createId } from "../../services/jsFunctions";
-import { Nodes } from "./Nodes";
+import Nodes from "./Nodes";
 
-export abstract class NodeStructure {
+export default abstract class NodeStructure {
     id : string;
     type: Nodes;
     abstract toString() : string;

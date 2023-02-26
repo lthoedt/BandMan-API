@@ -1,6 +1,6 @@
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
-import { Genre } from "../database/nodes/Genre";
+import Genre from "../database/nodes/Genre";
 
 export async function genreExists(name: string): Promise<boolean> {
 	try {
@@ -8,7 +8,7 @@ export async function genreExists(name: string): Promise<boolean> {
 		const result = await session.run(
 			`MATCH (g:${Nodes.Genre}) WHERE g.name="${name}" RETURN g`
 		)
-		session.close();
+		await session.close();
 		return result.records.length != 0;
 	} catch(err) {
 		console.log(err);
@@ -25,7 +25,7 @@ export async function createGenre(genre: Genre): Promise<Genre> {
                 (lb:${Nodes.Genre} {${genre.toString()}})
 		`)
 		
-		session.close();
+		await session.close();
 
 		return genre;
 	} catch (err) {

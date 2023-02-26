@@ -1,7 +1,7 @@
-import { NodeStructure } from "./NodeStructure";
-import { Nodes } from "./Nodes";
+import NodeStructure from "./NodeStructure";
+import Nodes from "./Nodes";
 
-export class Genre extends NodeStructure {
+export default class Genre extends NodeStructure {
     type=Nodes.Genre;
 
     name: string;

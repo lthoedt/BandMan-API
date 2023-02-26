@@ -1,8 +1,8 @@
-import { SongVoteListDTO } from '../dtos/SongVoteListDTO';
+import SongVoteListDTO from '../dtos/SongVoteListDTO';
 import express from 'express';
 import { bandExists, createSongVoteList } from '../services/SongVoteListService';
 import { sendStatus } from './functions';
-import { SongVoteList } from '../database/nodes/SongVoteList';
+import SongVoteList from '../database/nodes/SongVoteList';
 
 const router = express.Router();
 

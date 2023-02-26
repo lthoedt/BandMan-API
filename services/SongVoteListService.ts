@@ -1,6 +1,6 @@
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
-import { SongVoteList } from "../database/nodes/SongVoteList";
+import SongVoteList from "../database/nodes/SongVoteList";
 import Relations from "../database/relations/Relations";
 
 export async function createSongVoteList(songVoteList: SongVoteList, bandId: string): Promise<boolean> {
@@ -13,7 +13,7 @@ export async function createSongVoteList(songVoteList: SongVoteList, bandId: str
 			WHERE b.id="${bandId}"
 			CREATE (svl)-[rc:${Relations.VotingList}]->(b)
         `)
-		session.close();
+		await session.close();
 		return true;
 	} catch (err) {
 		console.log(err);
@@ -27,7 +27,7 @@ export async function bandExists(bandId: string): Promise<boolean> {
 		const result = await session.run(
 			`MATCH (b:${Nodes.Band}) WHERE b.id="${bandId}" RETURN b`
 		)
-		session.close();
+		await session.close();
 
 		return result.records.length != 0;
 	} catch (err) {

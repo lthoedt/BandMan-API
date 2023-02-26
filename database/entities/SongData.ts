@@ -1,4 +1,4 @@
-export class SongData {
+export default class SongData {
     key: number;
     bpm: number;
 

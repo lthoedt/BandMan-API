@@ -1,14 +1,26 @@
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
-import { Artist } from "../database/nodes/Artist";
+import Artist from "../database/nodes/Artist";
 
-export async function artistExists(id: string, spotifyApiId: string): Promise<boolean> {
+export async function artistExists(id: string, spotifyApiId: string, name: string): Promise<boolean> {
+	if (!id) id="";
+	if (!spotifyApiId) spotifyApiId="";
+	if (!name) name="";
 	try {
 		const session = getSession();
+		let query = `
+			MATCH (a:${Nodes.Artist})
+			WHERE a.spotifyApiId="${id}"
+			OR a.id="${spotifyApiId}"
+			OR a.name="${name}"
+			RETURN a`;
 		const result = await session.run(
-			`MATCH (a:${Nodes.Artist}) WHERE a.spotifyApiId="${id}" OR a.id="${spotifyApiId}" RETURN a`
+			query
 		)
-		session.close();
+		console.log(query);
+		console.log(result);
+		console.log(result.records.length);
+		await session.close();
 		return result.records.length != 0;
 	} catch {
 		return false;
@@ -27,7 +39,7 @@ export async function createArtist(artist: Artist): Promise<Artist> {
 
 		const session = getSession();
 		const result = await session.run(query)
-		session.close();
+		await session.close();
 
 		return artist;
 	} catch (err) {
@@ -39,7 +51,7 @@ export async function createArtist(artist: Artist): Promise<Artist> {
 export async function createArtistsIfNotExist(artists: Array<Artist>): Promise<Artist[]> {
 	return await Promise.all(
 		artists.map(async (artist: Artist) =>
-			(await artistExists(artist.id, artist.spotifyApiId))
+			(await artistExists(artist.id, artist.spotifyApiId, artist.name))
 				? artist
 				: await createArtist(artist)
 		));

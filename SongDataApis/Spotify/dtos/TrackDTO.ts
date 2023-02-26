@@ -1,9 +1,9 @@
-import { Song } from '../../../database/nodes/Song';
-import { NodeStructure } from '../../../database/nodes/NodeStructure';
+import Song from '../../../database/nodes/Song';
+import NodeStructure from '../../../database/nodes/NodeStructure';
 import { dtoStructure } from '../dtoStructure';
 import ArtistDTO from './ArtistDTO';
 import AlbumDTO from './AlbumDTO';
-import { SongData } from '../../../database/entities/SongData';
+import SongData from '../../../database/entities/SongData';
 
 class TrackDTO extends dtoStructure {
 

@@ -1,9 +1,9 @@
-import { Song } from '../database/nodes/Song';
+import Song from '../database/nodes/Song';
 import { getSession } from '../database/dbl';
-import { Nodes } from "../database/nodes/Nodes";
+import Nodes from "../database/nodes/Nodes";
 import Relations from "../database/relations/Relations";
 import { createArtistsIfNotExist as createArtistsIfNotExist } from './ArtistService';
-import { Artist } from '../database/nodes/Artist';
+import Artist from '../database/nodes/Artist';
 import { createImageIfNotExist } from './ImageService';
 import { createAlbumIfNotExist } from './AlbumService';
 
@@ -19,7 +19,7 @@ export async function songExists(id: string, spotifyApiId: string) {
 		const result = await session.run(
 			`MATCH (a:${Nodes.Song}) WHERE a.id="${id}" OR a.spotifyApiId="${spotifyApiId}" RETURN a`
 		)
-		session.close();
+		await session.close();
 		return result.records.length != 0;
 	} catch {
 		return false;
@@ -60,11 +60,11 @@ export async function createSong(song: Song): Promise<Song> {
 
 			${Artist.getArtistsRelationQuery(song.artists)}
 
-			CREATE (artist)-[ras:${Relations.Player}]->(song)
+			MERGE (artist)-[ras:${Relations.Player}]->(song)
 		`
 		const session = getSession();
 		const result = await session.run(query)
-		session.close();
+		await session.close();
 
 		return song;
 	} catch (err) {
@@ -96,7 +96,7 @@ export async function searchSong(search: string, resultType: number): Promise<Ar
 		RETURN s
 			`)
 
-			session.close();
+			await session.close();
 
 			songsDB = result.records.map((songRecord: any) => Song.fromQuery(songRecord));
 		} catch (err) {

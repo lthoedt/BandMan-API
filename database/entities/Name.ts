@@ -1,4 +1,4 @@
-export class Name {
+export default class Name {
     firstname: string = "";
     insertion: string = "";
     lastname: string = "";

@@ -1,6 +1,6 @@
-import { LoginDTO } from "../../dtos/LoginDTO";
+import LoginDTO from "../../dtos/LoginDTO";
 
-export class Login {
+export default class Login {
     email: string = "";
     password: string = "";
 

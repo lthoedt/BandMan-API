@@ -1,9 +1,9 @@
 import express from 'express';
 import { createMusician, musicianExists, loginMusician } from '../services/MusiciansService';
 import { Musician } from '../database/nodes/Musician';
-import { MusicianDTO } from '../dtos/MusicianDTO';
+import MusicianDTO from '../dtos/MusicianDTO';
 import { sendStatus } from './functions';
-import { LoginDTO } from '../dtos/LoginDTO';
+import LoginDTO from '../dtos/LoginDTO';
 import { Login } from '../database/entities/Login';
 
 const router = express.Router();
