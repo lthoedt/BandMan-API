@@ -1,18 +1,19 @@
-export default class LoginDTO {
+import DTO from "./DTO";
+import { validateWith, applyValidators, buildDTO } from './decorators/FieldDecorator';
+import EmailValidator from './validators/EmailValidator';
+import RequiredValidator from "./validators/RequiredValidator";
+export default class LoginDTO extends DTO {
 
-    email: string;
-    password: string;
+	@validateWith(RequiredValidator, EmailValidator)
+	email: string = "";
 
-    static fromJSON(json: any): LoginDTO {
-        try {
-            const loginDTO: LoginDTO = new LoginDTO;
+	@validateWith(RequiredValidator)
+	password: string = "";
 
-            loginDTO.email = json.email;
-            loginDTO.password = json.password;
-            
-            return loginDTO;
-        } catch {
-            return null;
-        }
-    }
+	// @ts-ignore
+	@applyValidators
+	// @ts-ignore
+	@buildDTO
+	// @ts-ignore
+	static fromJSON(json: any): LoginDTO | Error {}
 }

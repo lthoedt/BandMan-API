@@ -1,60 +1,73 @@
-import express from 'express';
-import { createMusician, musicianExists, loginMusician } from '../services/MusiciansService';
-import { Musician } from '../database/nodes/Musician';
-import MusicianDTO from '../dtos/MusicianDTO';
-import { sendStatus } from './functions';
-import LoginDTO from '../dtos/LoginDTO';
-import { Login } from '../database/entities/Login';
+import express, { Response, Request } from "express";
+import {
+	createMusician,
+	musicianExists,
+	loginMusician,
+} from "../services/MusiciansService";
+import Musician from "../database/nodes/Musician";
+import MusicianDTO from "../dtos/MusicianDTO";
+import { sendStatus } from "./functions";
+import LoginDTO from "../dtos/LoginDTO";
+import Login from "../database/entities/Login";
+import { ParseDTO } from "../dtos/decorators/ParseDTODecorator";
+import CreateDTO from '../dtos/CreateDTO';
+import {
+	Response as ResDecorator,
+	Request as ReqDecorator,
+	Params as ParamsDecorator,
+	Post,
+} from "@decorators/express";
+import { StatusCodes } from "http-status-codes";
 
-const router = express.Router();
+export default class MusiciansController {
+	// @ts-ignore
+	@Post("/")
 
-router.post('/', async (req, res) => {
-    const musicianDto = MusicianDTO.fromJSON(req.body);
-    if (musicianDto == null) {
-        return sendStatus(res, 412, "");
-    }
+	// @ts-ignore
+	@ParseDTO(CreateDTO)
+	async createMusician(
+		// @ts-ignore
+		@ResDecorator() res: Response,
+		// @ts-ignore
+		@ReqDecorator() req: Request,
+		createDTO: CreateDTO,
+	) {
+		const musician = Musician.fromDTO(createDTO);
 
-    const password : string = req.body.password;
+		if (await musicianExists(musician.email, true)) {
+			return sendStatus(res, 409, "This email already exists.");
+		}
 
-    if (password == undefined || password.length == 0) {
-        return sendStatus(res, 409, "Password is missing.");
-    }
+		musician.generateId();
 
-    if (musicianDto.email == undefined || musicianDto.email.length == 0) {
-        return sendStatus(res, 409, "Email is missing.");
-    }
+		const status = await createMusician(musician, createDTO.password);
 
-    const musician = Musician.fromDTO(musicianDto);
+		res.json({
+			success: status,
+			musician: musician,
+		});
+	}
 
-    if (await (musicianExists(musician.email, true))) {
-       return sendStatus(res, 409, "This email already exists.");
-    }
-    
-    musician.generateId();
+	// @ts-ignore
+	@Post("/login")
 
-    const status = await createMusician(musician, password);
+	// @ts-ignore
+	@ParseDTO(LoginDTO)
+	async loginMusician(
+		// @ts-ignore
+		@ResDecorator() res: Response,
+		// @ts-ignore
+		@ReqDecorator() req: Request,
+		loginDTO: LoginDTO,
+	) {
 
-    res.json({
-        success: status,
-        musician: musician
-    })
-})
+		const login: Login = Login.fromDTO(loginDTO);
 
-router.get('/login', async (req, res) => {
-    const loginDTO = LoginDTO.fromJSON(req.body);
+		// TODO: create not found exceptions.
+		const musician: Musician = await loginMusician(login);
 
-    if (loginDTO == null) {
-        return sendStatus(res, 412, "");
-    }
-
-    const login : Login = Login.fromDTO(loginDTO);
-
-    const musician : Musician = await loginMusician(login);
-
-    res.json({
-        success: musician != null,
-        musician: musician
-    })
-}) 
-
-module.exports = router;
+		res.json({
+			musician: musician,
+		});
+	}
+}

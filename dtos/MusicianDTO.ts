@@ -1,30 +1,27 @@
-import Name from "../database/entities/Name";
+import DTO from "./DTO";
+import NameDTO from './NameDTO';
+import { applyValidators, validateWith, buildDTO } from './decorators/FieldDecorator';
+import EmailValidator from "./validators/EmailValidator";
+import RequiredValidator from './validators/RequiredValidator';
 
-export default class MusicianDTO {
+export default class MusicianDTO extends DTO {
+	id: string = "";
+	
+	name: NameDTO = new NameDTO();
 
-    name: Name;
-    dateOfBirth: Date;
-    id: string;
-    email : string;
+	@validateWith(RequiredValidator)
+	dateOfBirth: Date;
 
-    static fromJSON(json: any): MusicianDTO {
-        try {
-            const musicianDTO: MusicianDTO = new MusicianDTO;
+	@validateWith(RequiredValidator, EmailValidator)
+	email: string;
 
-            // TODO: Create message so not correct name;
-            const name : Name = Name.fromJSON(json);
-            if (name == null) return null;
+	@validateWith(RequiredValidator)
+	password: string;
 
-            musicianDTO.name = name;
-            musicianDTO.dateOfBirth = new Date(json.dateOfBirth);
-
-            musicianDTO.id = json.id;
-
-            musicianDTO.email = json.email;
-
-            return musicianDTO;
-        } catch {
-            return null;
-        }
-    }
+	// @ts-ignore
+	@applyValidators
+	// @ts-ignore
+	@buildDTO
+	// @ts-ignore
+	static fromJSON(json: any): MusicianDTO | Error {}
 }

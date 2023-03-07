@@ -10,6 +10,6 @@ export default class Login {
     }
 
     static fromDTO(loginDTO : LoginDTO): Login {
-        try { return new Login(loginDTO.email, loginDTO.password) } catch { return null };
+        return new Login(loginDTO.email, loginDTO.password);
     }
 }

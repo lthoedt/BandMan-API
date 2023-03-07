@@ -3,6 +3,7 @@ import Name from "../entities/Name";
 import Nodes from "./Nodes";
 import MusicianDTO from "../../dtos/MusicianDTO";
 import { dateToString } from "../../controllers/functions";
+import CreateDTO from '../../dtos/CreateDTO';
 
 export default class Musician extends NodeStructure {
 
@@ -29,8 +30,8 @@ export default class Musician extends NodeStructure {
         `;
     }
 
-    static fromDTO(musicianDTO: MusicianDTO): Musician {
-        return new Musician(musicianDTO.name, musicianDTO.dateOfBirth, musicianDTO.email, musicianDTO.id);
+    static fromDTO(musicianDTO: MusicianDTO | CreateDTO): Musician {
+        return new Musician(Name.fromDTO(musicianDTO.name), musicianDTO.dateOfBirth, musicianDTO.email, musicianDTO.id);
     }
 
     static fromQuery(result: any): Musician {
