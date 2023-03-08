@@ -1,39 +1,55 @@
-import BandDTO from '../dtos/BandDTO';
-import express from 'express';
-import { createBand } from '../services/BandsService';
-import { Band } from '../database/nodes/Band';
-import { sendStatus } from './functions';
-import { musicianExists } from '../services/MusiciansService';
+import BandDTO from "../dtos/BandDTO";
+import express, { Response, Request } from "express";
+import {
+	Response as ResDecorator,
+	Request as ReqDecorator,
+	Get,
+	Post,
+} from "@decorators/express";
+
+import { createBand } from "../services/BandsService";
+import Band from "../database/nodes/Band";
+import { musicianExists } from "../services/MusiciansService";
+import { ParseDTO } from "../dtos/decorators/ParseDTODecorator";
 
 const router = express.Router();
 
-// getBands
-router.get('/', async (req, res) => {
-    res.json({ henk: true })
-})
+export default class BandsController {
+	// @ts-ignore
+	@Get("/")
 
-// createBand
-router.post('/', async (req, res) => {
-    const bandDto = BandDTO.fromJSON(req.body);
-    const musicianId : string = req.body.musicianId;
+	// @ts-ignore
+	// Retrieves all bands.
+	getBands(@ResDecorator() res: Response) {
+		res.sendStatus(404);
+	}
 
-    // TODO: find a away to automate this.
-    if (bandDto == null || musicianId == undefined || musicianId == null || musicianId.length == 0) {
-        return sendStatus(res, 412, "");
-    }
+	// @ts-ignore
+	@Post("/")
 
-    if (!(await musicianExists(musicianId))) {
-        return sendStatus(res, 404, `Musician with id "${musicianId}" has not been found.`);
-    }
+	// createBand
+	// @ts-ignore
+	@ParseDTO(BandDTO)
+	async createBand(
+		// @ts-ignore
+		@ResDecorator() res: Response,
+		// @ts-ignore
+		@ReqDecorator() req: Request,
+		bandDto: BandDTO
+	) {
 
-    const band = Band.fromDTO(bandDto);
-    band.generateId();
-    
-    const status = await createBand(band, musicianId);
+    // TODO: Setup bearer token.
+		const musicianId: string = req.body.musicianId;
 
-    res.json({
-        success: status
-    })
-})
+		await musicianExists(musicianId);
 
-module.exports = router;
+		const band = Band.fromDTO(bandDto);
+		band.generateId();
+
+		const status = await createBand(band, musicianId);
+
+		res.json({
+			success: status,
+		});
+	}
+}
