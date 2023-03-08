@@ -1,21 +1,25 @@
-export default class BandDTO {
+import DTO from "./DTO";
+import {
+	validateWith,
+	applyValidators,
+	buildDTO,
+} from "./decorators/FieldDecorator";
+import RequiredValidator from "./validators/RequiredValidator";
+import DateValidator from "./validators/DateValidator";
 
-    name: string;
-    originateDate: Date;
-    id: string;
+export default class BandDTO extends DTO {
+	@validateWith(RequiredValidator)
+	name: string = "";
 
-    static fromJSON(json: any): BandDTO {
-        try {
-            const bandDTO: BandDTO = new BandDTO;
+	@validateWith(RequiredValidator, DateValidator)
+	originateDate: Date = new Date();
 
-            bandDTO.name = json.name;
-            bandDTO.originateDate = new Date(json.originateDate);
+	id: string = "";
 
-            bandDTO.id = json.id;
-
-            return bandDTO;
-        } catch {
-            return null;
-        }
-    }
+	// @ts-ignore
+	@applyValidators
+	// @ts-ignore
+	@buildDTO
+	// @ts-ignore
+	static fromJSON(json: any): BandDTO {};
 }

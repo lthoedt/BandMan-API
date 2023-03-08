@@ -1,19 +1,23 @@
-export default class Name {
+import DTO from '../../dtos/DTO';
+import Entity from './Entity';
+import NameDTO from '../../dtos/NameDTO';
+
+export default class Name extends Entity {
     firstname: string = "";
     insertion: string = "";
     lastname: string = "";
-
-    constructor(firstname: string, insertion: string, lastname: string) {
-        this.firstname = firstname;
-        this.insertion = insertion;
-        this.lastname = lastname;
-    }
 
     toString(): string {
         return `firstname: "${this.firstname}", insertion: "${this.insertion}", lastname: "${this.lastname}"`
     }
 
-    static fromJSON(json: any): Name {
-        try { return new Name(json.firstname, json.insertion, json.lastname) } catch { return null };
+    static fromDTO(dto: NameDTO): Name {
+        const name : Name = new Name();
+
+        name.firstname = dto.firstname;
+        name.insertion = dto.insertion;
+        name.lastname = dto.lastname;
+
+        return name;
     }
 }
