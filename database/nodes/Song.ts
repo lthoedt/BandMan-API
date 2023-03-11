@@ -1,12 +1,12 @@
-import NodeStructure from "./NodeStructure";
+import Node from "./Node";
 import Nodes from "./Nodes";
 import Image from "./Image";
-import SongData from "../entities/SongData";
 import Artist from "./Artist";
 import Album from "./Album";
 import SongDTO from "../../dtos/SongDTO";
+import SongDataEntity from '../../entities/SongDataEntity';
 
-export default class Song extends NodeStructure {
+export default class Song extends Node {
     type=Nodes.Song;
 
     id: string;
@@ -23,7 +23,7 @@ export default class Song extends NodeStructure {
         ytMusic: string;
         yt: string;
     };
-    songData: SongData;
+    songData: SongDataEntity;
     
     public constructor(
         id: string,
@@ -39,7 +39,7 @@ export default class Song extends NodeStructure {
             ytMusic: string;
             yt: string;
         },
-        songData: SongData
+        songData: SongDataEntity
     ) {
         super();
         this.id = id;

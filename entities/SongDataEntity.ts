@@ -1,4 +1,4 @@
-export default class SongData {
+export default class SongDataEntity {
     key: number;
     bpm: number;
 

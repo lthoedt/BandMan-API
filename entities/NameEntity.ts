@@ -1,8 +1,7 @@
-import DTO from '../../dtos/DTO';
 import Entity from './Entity';
-import NameDTO from '../../dtos/NameDTO';
+import NameDTO from '../dtos/NameDTO';
 
-export default class Name extends Entity {
+export default class NameEntity extends Entity {
     firstname: string = "";
     insertion: string = "";
     lastname: string = "";
@@ -11,8 +10,8 @@ export default class Name extends Entity {
         return `firstname: "${this.firstname}", insertion: "${this.insertion}", lastname: "${this.lastname}"`
     }
 
-    static fromDTO(dto: NameDTO): Name {
-        const name : Name = new Name();
+    static fromDTO(dto: NameDTO): NameEntity {
+        const name : NameEntity = new NameEntity();
 
         name.firstname = dto.firstname;
         name.insertion = dto.insertion;

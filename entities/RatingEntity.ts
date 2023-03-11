@@ -1,9 +1,9 @@
-export default class Rating {
+export default class RatingEntity {
     rating: number;
     static ratingRange = 2;
 
     setRating(rating: number): boolean {
-        if (Math.abs(rating) > Rating.ratingRange) return false;
+        if (Math.abs(rating) > RatingEntity.ratingRange) return false;
         this.rating = rating;
         return true;
     }

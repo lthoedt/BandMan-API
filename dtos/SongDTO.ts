@@ -1,7 +1,7 @@
 import Image from "../database/nodes/Image";
-import SongData from "../database/entities/SongData";
 import Artist from "../database/nodes/Artist";
 import Album from "../database/nodes/Album";
+import SongDataEntity from '../entities/SongDataEntity';
 
 export default class SongDTO {
 
@@ -19,7 +19,7 @@ export default class SongDTO {
         ytMusic: string;
         yt: string;
     };
-    songData: SongData;
+    songData: SongDataEntity;
 
     static fromJSON(json: any): SongDTO {
         try {
