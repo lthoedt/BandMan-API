@@ -5,8 +5,6 @@ import EmailValidator from "./validators/EmailValidator";
 import RequiredValidator from './validators/RequiredValidator';
 
 export default class MusicianDTO extends DTO {
-	id: string = "";
-	
 	name: NameDTO = new NameDTO();
 
 	@validateWith(RequiredValidator)

@@ -1,9 +1,10 @@
-import NodeStructure from "./NodeStructure";
+import Node from "./Node";
 import Nodes from "./Nodes";
 import SongVoteListDTO from "../../dtos/SongVoteListDTO";
 import { dateToString } from "../../controllers/functions";
+import Guid from "../../entities/Guid";
 
-export default class SongVoteList extends NodeStructure {
+export default class SongVoteList extends Node {
 
     type=Nodes.SongVoteList;
 
@@ -11,7 +12,7 @@ export default class SongVoteList extends NodeStructure {
     endDate: Date;
 
     public constructor(
-        id: string,
+        id: Guid,
         creationDate: Date,
         endDate: Date
     ) {

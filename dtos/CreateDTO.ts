@@ -9,8 +9,6 @@ import DateValidator from './validators/DateValidator';
 const pswValidator = new EqualValidator();
 
 export default class CreateDTO extends DTO {
-	id: string = "";
-
 	name: NameDTO = new NameDTO();
 
 	@validateWith(RequiredValidator, DateValidator)

@@ -10,10 +10,11 @@ import { createAlbumIfNotExist } from './AlbumService';
 import SongDataApiInterface from '../SongDataApis/songDataApiInterface';
 
 import SpotifyApi from '../SongDataApis/Spotify/SpotifyService';
+import Guid from '../entities/Guid';
 
 const songDataApi: SongDataApiInterface = new SpotifyApi();
 
-export async function songExists(id: string, spotifyApiId: string) {
+export async function songExists(id: Guid, spotifyApiId: string) {
 	try {
 		const session = getSession();
 		const result = await session.run(

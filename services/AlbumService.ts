@@ -7,11 +7,12 @@ import { createGenreIfNotExist } from "./GenreService";
 import { createImageIfNotExist } from "./ImageService";
 import Relations from "../database/relations/Relations";
 import Artist from "../database/nodes/Artist";
+import Guid from "../entities/Guid";
 
-export async function albumExists(id: string, spotifyApiId: string) {
+export async function albumExists(id: Guid, spotifyApiId: string) {
 	const session = getSession();
 
-	if (!id) id="";
+	if (!id) id=new Guid();
 	if (!spotifyApiId) spotifyApiId="";
 
 	try {

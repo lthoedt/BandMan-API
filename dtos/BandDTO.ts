@@ -14,8 +14,6 @@ export default class BandDTO extends DTO {
 	@validateWith(RequiredValidator, DateValidator)
 	originateDate: Date = new Date();
 
-	id: string = "";
-
 	// @ts-ignore
 	@applyValidators
 	// @ts-ignore

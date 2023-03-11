@@ -1,9 +1,10 @@
 import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
 import Artist from "../database/nodes/Artist";
+import Guid from "../entities/Guid";
 
-export async function artistExists(id: string, spotifyApiId: string, name: string): Promise<boolean> {
-	if (!id) id="";
+export async function artistExists(id: Guid, spotifyApiId: string, name: string): Promise<boolean> {
+	if (!id) id=new Guid();
 	if (!spotifyApiId) spotifyApiId="";
 	if (!name) name="";
 	try {

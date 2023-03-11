@@ -1,8 +1,9 @@
 import Nodes from "../database/nodes/Nodes";
 import { getSession } from "../database/dbl";
 import Label from "../database/nodes/Label";
+import Guid from "../entities/Guid";
 
-export async function labelExists(id: string): Promise<boolean> {
+export async function labelExists(id: Guid): Promise<boolean> {
 	try {
 		const session = getSession();
 

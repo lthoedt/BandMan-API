@@ -5,11 +5,11 @@ import Artist from "./Artist";
 import Album from "./Album";
 import SongDTO from "../../dtos/SongDTO";
 import SongDataEntity from '../../entities/SongDataEntity';
+import Guid from "../../entities/Guid";
 
 export default class Song extends Node {
     type=Nodes.Song;
 
-    id: string;
     spotifyApiId: string;
 
     title: string;
@@ -26,7 +26,7 @@ export default class Song extends Node {
     songData: SongDataEntity;
     
     public constructor(
-        id: string,
+        id: Guid,
         spotifyApiId: string,
         title: string,
         year: number,
