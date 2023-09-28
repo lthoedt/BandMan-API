@@ -26,4 +26,12 @@ export default class NameDTO extends DTO {
 	@buildDTO
 	// @ts-ignore
 	static fromJSON(json: any) : NameDTO | Error {};
+	
+	toJSON(): Object {
+		return {
+			firstname: this.firstname,
+			insertion: this.insertion,
+			lastname: this.lastname,
+		};
+	}
 }

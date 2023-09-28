@@ -1,8 +1,12 @@
 import DTO from "./DTO";
-import NameDTO from './NameDTO';
-import { applyValidators, validateWith, buildDTO } from './decorators/FieldDecorator';
+import NameDTO from "./NameDTO";
+import {
+	applyValidators,
+	validateWith,
+	buildDTO,
+} from "./decorators/FieldDecorator";
 import EmailValidator from "./validators/EmailValidator";
-import RequiredValidator from './validators/RequiredValidator';
+import RequiredValidator from "./validators/RequiredValidator";
 
 export default class MusicianDTO extends DTO {
 	name: NameDTO = new NameDTO();
@@ -21,5 +25,12 @@ export default class MusicianDTO extends DTO {
 	// @ts-ignore
 	@buildDTO
 	// @ts-ignore
-	static fromJSON(json: any): MusicianDTO | Error {}
+	static fromJSON(json: any): MusicianDTO {}
+
+	toJSON = () =>
+		Object.assign(super.toJSONNodeElements(), {
+			name: this.name.toJSON(),
+			dateOfBirth: this.dateOfBirth,
+			email: this.email,
+		});
 }

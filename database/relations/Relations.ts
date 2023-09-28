@@ -9,7 +9,7 @@ enum Relations {
 	Label = "Label",
 	Genre = "Genre",
 	Thumbnail = "Thumbnail",
-	Album = "Album"
+	Album = "Album",
 }
 
 export default Relations;
